@@ -4,16 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="stylesheet" href="static/style.css">
     <title>Test</title>
   </head>
   <body>
-    <h3>Our Flask Buttons<h3/>
+    <h1>ToDo list</h1>
     <form method="post" action="/">
-      {%for i in range(10)%}
-        <input type="submit" value=VALUE{{i}} name="but"/>
-        <!-- <input type="submit" value="VALUE2" name="but" /> -->
-      {%endfor%}
+      <textarea name="sub" id="" cols="30" rows="1"></textarea>
+      <br>
+      <button type="submit" value="addBut" name="but">Add</button>
+      <button type="submit" value="delete" name="but">Delete</button>
+      <button type="submit" value="clear" name="but">Clear</button>
+      {%for i in range(x|length)%}
+        <div class="todoText">
+          <input type="checkbox" name="check{{i}}">
+          <span>{{x[i]}}</span>
+        </div>
+        {%else%}
+          <p>No Todos</p>
+        {%endfor%}
     </form>
   </body>
 </html>
