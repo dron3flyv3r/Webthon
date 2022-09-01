@@ -4,17 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    {{ dropzone.load_css() }}
     <title>Test</title>
   </head>
   <body>
     <h1>ToDo list</h1>
+    <h4>{{cpu}}</h4>
     <form method="post" action="/">
-      <textarea name="sub" id="" cols="30" rows="1"></textarea>
+      <textarea name="sub" cols="30" rows="1"></textarea>
       <br>
-      <button type="submit" value="addBut" name="but">Add</button>
-      <button type="submit" value="delete" name="but">Delete</button>
-      <button type="submit" value="clear" name="but">Clear</button>
+      <div class="but">
+        <button type="submit" value="addBut" name="but">Add</button>
+        <button type="submit" value="delete" name="but">Delete</button>
+        <button type="submit" value="clear" name="but">Clear</button>
+        <button type="submit" value="save" name="but">Save</button>
+        <button type="submit" value="load" name="but">Load</button>
+        <button value="upload" name="but">upload</button>
+    </form>
+      </div>
       {%for i in range(x|length)%}
         <div class="todoText">
           <input type="checkbox" name="check{{i}}">
@@ -23,6 +31,16 @@
         {%else%}
           <p>No Todos</p>
         {%endfor%}
-    </form>
+
+        <div style="visibility: {{visibility}};" class="upload">
+          {{ dropzone.create(action='upload') }}
+          {{ dropzone.load_js() }}
+        </div>
+
+<!--         {%for i in range(1, 999)%}
+
+        <button type="submit" value="test{{i}}" name="but">test{{i}}</button>
+
+        {%endfor%} -->
   </body>
 </html>
