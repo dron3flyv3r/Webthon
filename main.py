@@ -1,76 +1,64 @@
-from subprocess import check_output
-from flask import Flask, render_template, Response, request, redirect, url_for
-from flask_dropzone import Dropzone
+from flask import Flask, render_template, request
+from fileClass import Files
+from RPIClass import Master, Node
+from sys import platform
+import json
 import os
-
-def getCpuTemp():
-    cpu = check_output(['cat', '/sys/class/thermal/thermal_zone0/temp']).decode("utf-8") 
-    cpu = float(cpu) / 1000
-    return float(f"{cpu:.2f}")
 
 app = Flask(__name__)
 
-todoList = []
-visUp = "hidden"
-
-if os.path.exists("todo.txt"):
-    with open("todo.txt", "r") as f:
-        todo = f.read()
-        todoList = todo.split("\n")
-        todoList.remove("")
+def fileSearcher():
+    glo = globals()
+    tmp = [path for path in os.listdir(scripPath) if os.path.isdir(os.path.join(scripPath, path))]
+    tmp = [Files(os.path.join(scripPath, path), path) for path in tmp]
+    glo.update({"pythonScripts": tmp})
+    
+def updateSetings():
+     pass
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     glo = globals()
-    if request.method == 'POST':
-        match request.form.get("but"):
-            
-            case "addBut":
-                for tmp in request.form.get('sub').split(","):
-                    if tmp != "":
-                        todoList.append(tmp)
+    states = {"cpu": 0, "ram": 0, "disk": 0, "temp": 0}
+    if request.method == 'POST':                
+        for idx, pyFile in enumerate(pythonScripts):
+            if request.form.get("but") == f"run{idx}":
+                if not str(request.form.get(f"mainFile{idx}")) == "None":
+                    pyFile.run(request.form.get(f"mainFile{idx}"))
+                
+            elif request.form.get("but") == f"stop{idx}":
+                pyFile.kill()
+                                        
+    return render_template('index.html', files=enumerate(pythonScripts), settings=settings, states=states)
 
-            case "delete":
-                for idx in range(len(todoList), -1, -1):
-                    if request.form.get(f"check{idx}"):
-                        todoList.pop(idx)
 
-            case "clear":
-                todoList.clear()
+if __name__ == '__main__':
 
-            case "save":
-                    with open("todo.txt", "w") as f:
-                        for item in todoList:
-                            f.write(item + "\n")
-
-            case "load":
-                todoList.clear()
-                with open("todo.txt", "r") as f:
-                    for line in f:
-                        todoList.append(line.strip())
-            
-            case "upload":
-                global visUp
-                if glo["visUp"] == "hidden":
-                    visUp = "visible"
-                else:
-                    visUp = "hidden"
+    match platform:
+        case "linux" | "linux2":
+            scripPath = r"/home/pi/code/serverFiles"
+        case "win32":
+            if not os.path.exists(f"{os.environ['USERPROFILE']}\\Documents\\serverFiles"):
+                os.makedirs(f"{os.environ['USERPROFILE']}\\Documents\\serverFiles")
+            scripPath = f"{os.environ['USERPROFILE']}\\Documents\\serverFiles"
+        case _:
+            input("Platform not supported press enter to exit")
+            exit()
+    try:
+        settings = json.load(open("settings.json", "r"))
+    except FileNotFoundError:
+        try:
+            settings = json.load(open("defult.json", "r"))   
+        except Exception as e:
+            print(e)
+            input("Press enter to exit")
+            exit()
     
-    return render_template('index.html', x=todoList, cpu=getCpuTemp(), visibility=glo["visUp"])
-
-
-
-app.config.update(
-    UPLOADED_PATH= r"upload",
-    DROPZONE_MAX_FILE_SIZE = 1024,
-    DROPZONE_TIMEOUT = 5*60*1000)
-
-dropzone = Dropzone(app)
-@app.route('/test',methods=['POST','GET'])
-def upload():
-    if request.method == 'POST':
-        f = request.files.get('file')
-        f.save(os.path.join(app.config['UPLOADED_PATH'],f.filename))
-    return render_template('drop.html')
-
-app.run(debug=True, port=8080, host="0.0.0.0") 
+    if not os.path.exists(scripPath):
+        os.makedirs(scripPath)
+    
+    pythonScripts = []
+    
+    fileSearcher()
+    
+    app.run(debug=True, port=8080, host="0.0.0.0") 
