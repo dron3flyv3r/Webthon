@@ -54,8 +54,6 @@ def index():
     if request.method == 'POST':                
         for idx, pyFile in enumerate(pythonScripts):
             
-            match request.form.get(f"but")
-            
             if request.form.get(f"but") == f"update{idx}":
                 if not request.form.get(f"fileName{idx}") in [x.name for x in pythonScripts]:
                     pyFile.update_name(request.form.get(f"fileName{idx}"))
