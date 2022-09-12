@@ -30,7 +30,7 @@ You also need python 3.11+
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/dron3flyv3r/Webthon
 ```
 
 Go to the project directory
