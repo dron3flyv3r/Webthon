@@ -4,6 +4,10 @@ import json
 
 settings = {
     "clusterName": "RPiCluster",
+    "customFiles":{
+        
+    },
+    "fileNames":[["", ""]]  
 }
 
 with open("settings.json", "w") as f:

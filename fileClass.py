@@ -1,9 +1,9 @@
+import json
 import subprocess as sub
 from time import sleep
-import time
 from uuid import uuid1
 import threading
-import asyncio
+import time
 import os
 
 class Files():
@@ -17,8 +17,9 @@ class Files():
         self.terminal = []
         self.tmp = None
         self.pid = None
-        self.files = [path for path in os.listdir(self.path) if os.path.isfile(os.path.join(self.path, path))]
-
+        self.url = f"http://localhost:8000/?folder={path}"
+        self.files = [path for path in os.listdir(self.path) if path.endswith(".py")]
+        
     def update_description(self, description: str):
         self.description = description
         return self.description
@@ -29,7 +30,18 @@ class Files():
     
     def update_name(self, name: str):
         self.name = name
-        return self.name
+        try:
+            oldPath = self.path
+            newPath = self.folderPath.split("/")
+            newPath = "/".join(newPath[:-1]) + "/" + self.name
+            os.rename(oldPath, newPath)
+            self.path = newPath
+        except:
+            pass
+    
+    def edit(self):
+        #open the file in vscode
+        pass
         
     def run(self, fileName: str = None):
         if fileName:

@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="static/css/basic.css">
-  <link rel="stylesheet" href="static/css/nav.css">
-  <link rel="stylesheet" href="https://use.typekit.net/jip8lxt.css">
-  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-  <title>Webthon</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webthon Settings</title>
+    <link rel="stylesheet" href="static/css/basic.css">
+    <link rel="stylesheet" href="static/css/nav.css">
+    <link rel="stylesheet" href="https://use.typekit.net/jip8lxt.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
-  <nav class="sidebar close">
+
+      <nav class="sidebar close">
     <header>
       <div class="image-text">
         <span class="image">
@@ -100,163 +99,8 @@
       </div>
     </div>
   </nav>
-
-  <div class="systemBody">
-    <div class="monitorTop">
-      <div class="rpiName">
-        <h1>{{ settings["clusterName"] }}</h1>
-      </div>
-      <form action="/" method="post" enctype=multipart/form-data>
-        <div class="fileUpload">
-          <!-- multiple="true" autocomplete="off" -->
-          <p>
-            <input type="file" name="file[]" multiple directory="" webkitdirectory>
-          </p>
-          <button name="but" value="upload">Upload</button>
-        </div>
-      </form>
+    <div class="systemBody">
+    
     </div>
-    <div class="monitor">
-        <div class="cpuUse">
-          <div class="progress">
-            <div class="barOverflow">
-              <div class="bar"></div>
-            </div>
-            <h2>CPU</h2>
-            <span>{{ states["cpu"] }}</span>%
-          </div>
-        </div>
-        <div class="ramUse">
-          <div class="progress">
-            <div class="barOverflow">
-              <div class="bar"></div>
-            </div>
-            <h2>Ram</h2>
-            <span>{{ states["ram"] }}</span>%
-          </div>
-        </div>
-        <div class="disk">
-          <div class="progress">
-            <div class="barOverflow">
-              <div class="bar"></div>
-            </div>
-            <h2>Disk</h2>
-            <span>{{ states["disk"] }}</span>%
-          </div>
-        </div>
-        <div class="temp">
-          <h2>Temp</h2>
-          <h3>{{ states["temp"] }}C</h3>
-        </div>
-        <div class="terminal">
-          <h2>Log</h2>
-          <div class="logOutput">
-            <div class="logOutputText">
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  {% if files %}
-  {% for idx, file in files %}
-  <form method="post" action="/">
-    <div class="fileBody">
-        {% if file.running %}
-        <div class="greenDot"></div>
-        {% else %}
-        <div class="redDot"></div>
-        {% endif %}
-        <div class="fileName">
-          <p>File Name:</p>
-          <textarea name="fileName{{idx}}" cols="6" rows="1">{{file.name}}</textarea>
-        </div>
-        <div class="nameSpacer"></div>
-        <div class="tags">
-          <h1>Tags:</h1>
-          {% for tag in file.tag %}
-            <p>{{tag}}</p>
-          {% endfor %}
-        </div>
-        <div class="description">
-          <textarea icols="30" rows="6">{{ file.description }}</textarea>
-        </div>
-          <div class="pid">
-            <h1>Pid:</h1> 
-            <p>{{file.pid}}</p>
-
-          </div>
-          <div class="miniTerminal">
-            <h1>Terminal:</h1>
-            {% for s in file.terminal %}
-            <p>{{s}}</p>
-            {% endfor %}
-          </div>
-
-          {% if (file.files | length) > 0 %}
-          <div class="fileSelection">
-            <label class="fileSelection">Run file:</label>
-            <select name="mainFile{{idx}}">
-              {% for name in file.files %}
-              {% if name == "main.py" %}
-              <option value="{{ name }}" selected>{{ name }}</option>
-              {% else %}
-              <option value="{{ name }}">{{ name }}</option>
-              {% endif %}
-              {% endfor %}
-            </select>
-            {% else %}
-            <p class="fileSelection">No python files</p>
-            {% endif %}
-          </div>
-          <button name="but" value="run{{idx}}" class="runBut">Run</button>
-          <button name="but" value="kill{{idx}}" class="killBut">Kill</button>
-          <button name="but" value="edit{{idx}}" class="editBut">Edit</button>
-          <button name="but" value="update{{idx}}" class="editBut">Update</button>
-      </form>
-
-      </div>
-    </div>
-  {% endfor %}
-  {% endif %}
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function () {
-      $(".progress").each(function () {
-        var $bar = $(this).find(".bar");
-        var $val = $(this).find("span");
-        var perc = parseInt($val.text(), 10);
-
-        $({ p: 0 }).animate({ p: perc }, {
-          duration: 1500,
-          easing: "swing",
-          step: function (p) {
-            $bar.css({
-              transform: "rotate(" + (45 + (p * 1.8)) + "deg)", // 100%=180° so: ° = % * 1.8
-              // 45 is to add the needed rotation to have the green borders at the bottom
-            });
-            $val.text(p | 0);
-          }
-        });
-      });
-    });
-
-  const body = document.querySelector('body'),
-    sidebar = body.querySelector('nav'),
-    hamtoggle = body.querySelector(".ham-toggle"),
-    searchBtn = body.querySelector(".search-box"),
-    modeSwitch = body.querySelector(".toggle-switch"),
-    modeText = body.querySelector(".mode-text");
-
-  hamtoggle.addEventListener("click", function () {
-    sidebar.classList.toggle("close");
-  });
-
-  searchBtn.addEventListener("click", () => {
-    sidebar.classList.remove("close");
-  })
-
-</script>
-
 </html>

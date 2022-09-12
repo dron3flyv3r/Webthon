@@ -1,3 +1,10 @@
 {
-    "clusterName": "RPiCluster"
+    "clusterName": "RPiCluster",
+    "customFiles": {},
+    "fileNames": [
+        [
+            "",
+            ""
+        ]
+    ]
 }

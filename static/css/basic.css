@@ -1,14 +1,34 @@
-:root{
-    --backgrond-color-main: ##406794;
-    --backgrond-color-secondary: ##1E415E;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
+:root {
+    /* ===== Colors ===== */
+    --body-color: #406794;
+    --body-color-dark: #1E415E;
+    --logo-color: #ffde58;
+    --sidebar-color: #1E415E;
+    --primary-color: #406794;
+    --primary-color-light: #414141;
+    --toggle-color: ##E6E6E6;
+    --text-color: #DFDFDF;
+
+
+    /* ====== Transition ====== */
+    --tran-03: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
+}
 
 .systemBody{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     color: var(--text-color);
-    /* set it on the top */
     background-color: var(--body-color-dark);
     z-index: 0;
     top: 0;
@@ -17,8 +37,91 @@
     border-radius: 3em;
     margin-left: 10em;
     width: 100%;
-    min-height: 400px;
-    min-width: 600px;
+    min-height: 350px;
+    min-width: 980px;
+}
+
+.systemBody .monitorTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 1em;
+}
+
+.systemBody .monitorTop .upload{
+    background-color: var(--body-color);
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+.progress {
+    position: relative;
+    margin: 4px;
+    float: left;
+    text-align: center;
+}
+
+.barOverflow {
+    /* Wraps the rotating .bar */
+    position: relative;
+    width: 180px;
+    height: 90px;
+    /* Half circle (overflow) */
+    margin-bottom: -14px;
+    /* bring the numbers up */
+    overflow: hidden;
+    /* hide the overflowing numbers */
+    top: 15px;
+}
+
+.fileUpload{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 1em;
+}
+
+.fileSync button:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;
+    height: 180px;
+    /* full circle! */
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 10px solid #ccc;
+    /* half gray, */
+    border-bottom-color: #0bf;
+    /* half azure */
+    border-right-color: #0bf;
+}
+
+.systemBody .monitor{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0 2em;
+    /* set it to the buttom if the div */
+}
+
+.monitor .logOutput{
+    width: 250px;
+    height: 200px;
+    background-color: var(--body-color);
+    border-radius: 2em;
 }
 
 .fileBody{
@@ -32,6 +135,7 @@
     border-radius: 3em;
     padding: 1.2em 1.4em;
     min-height: 26em;
+    min-width: 320px;
 }
 
 .fileBody button{
@@ -48,16 +152,18 @@
     text-align: center;
     cursor: pointer;
 }
+
 .fileBody .runBut{
     background-color: #49A827;
 }
+
 .fileBody .killBut{
     background-color: #B22E2E;
 }
-.fileBody .terminalBut{
+
+.fileBody .editBut{
     background-color: #526EB9;
     font-size: 1.2em;
-    
 }
 
 .fileBody .description textarea{
@@ -75,12 +181,27 @@
 .fileBody .fileSelection select{
     background-color: var(--body-color-dark);
     color: var(--text-color);
-    margin-top: 1em;
     padding: 0 .5em;
     border-radius: .5em;
     border: 0;
+    font-size: 16px;
     /* hide the arow */
     -webkit-appearance: none;
+}
+
+.fileBody .pid{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fileBody .pid p{
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.fileBody .pid h1{
+    font-size: 16px;
 }
 
 /* change color on hover */
@@ -90,8 +211,24 @@
 
 .fileBody .fileSelection {
     font-size: 16px;
+    font-weight: 800;
 }
 
+.fileBody .fileName{
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.fileBody .fileName textarea{
+    resize: none;
+    background-color: var(--body-color-dark);
+    border: 0;
+    margin-left: 5px;
+    color: var(--text-color);
+    font-size: 1em;
+}
 
 .fileBody .nameSpacer{
     display: flex;
