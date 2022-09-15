@@ -5,6 +5,10 @@ Webthon is a webinterface to make and controll python scripts. That runs on one 
 ## What is Webthon
 Webthon is a Kubernetes look a like, but is made only for python scripts and python code. It is an easy way to make and monitor multiple python scripts. All from AI/ML to small automation home controlls and discord bots. I is made to run on one or multipel raspberry pi's. For better ease and faster code.
 
+## Documentation
+the documentation page is still under construction.
+[Click Here]()
+
 
 ## Installation Needs
 
