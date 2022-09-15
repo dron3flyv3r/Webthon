@@ -10,7 +10,7 @@ the documentation page is still under construction.
 [Click Here]()
 
 
-## Installation Needs
+## Installation and preparation
 
 First you need to install "The Visual Studio Code Server"
 
@@ -30,9 +30,6 @@ You also need python 3.11+
     sudo apt-get update
     sudo apt-get install python3.11
 ```
-
-    
-## Download
 
 Clone the project
 
