@@ -4,12 +4,12 @@ import json
 
 settings = {
     "clusterName": "RPiCluster",
-    "customFiles":{
-        
-    },
-    "fileNames":[["", ""]]  
+    "Nodes": [],
+    "typs": [
+        {"name": "RaspberryPi"},
+        {"name": "Windows"}
+       ]
 }
-
 with open("settings.json", "w") as f:
     json.dump(settings, f, indent=4)
  

@@ -1,4 +1,3 @@
-import json
 import subprocess as sub
 from time import sleep
 from uuid import uuid1
@@ -17,6 +16,7 @@ class Files():
         self.terminal = []
         self.tmp = None
         self.pid = None
+        self.ip = None
         self.url = f"http://localhost:8000/?folder={path}"
         self.files = [path for path in os.listdir(self.path) if path.endswith(".py")]
         
@@ -29,28 +29,35 @@ class Files():
         return self.tag
     
     def update_name(self, name: str):
-        self.name = name
+        self.name = str(name)
         try:
             oldPath = self.path
             newPath = self.folderPath.split("/")
             newPath = "/".join(newPath[:-1]) + "/" + self.name
             os.rename(oldPath, newPath)
             self.path = newPath
+            print("Renamed", oldPath, "to", newPath)
         except:
-            pass
+            print("Error: Could not rename file")
+    
+    def update_ip(self, ip: str):
+        self.ip = ip
+        
+    def update_running(self, running: bool):
+        self.running = running
     
     def edit(self):
         #open the file in vscode
         pass
         
-    def run(self, fileName: str = None):
+    def run(self, fileName: str):    
         if fileName:
             self.path = os.path.join(self.folderPath, fileName)
         else:
             return
         scriptThreat = threading.Thread(self.__run_script(), name=f"thread{str(uuid1())[:8]}")
-        
         pidThreat = threading.Thread(self.__getPid(), name=f"thread{str(uuid1())[:8]}")
+        
         scriptThreat.start()
         pidThreat.start()
      
@@ -66,6 +73,12 @@ class Files():
         for tag in self.tag:
             tags += f"{tag} "
         return tags
+    
+    def remove(self):
+        try:
+            os.remove(self.path)
+        except:
+            sub.Popen(["rm", "-rf", self.path], stdout=sub.PIPE, stderr=sub.PIPE, universal_newlines=True)
         
     def __getPid(self):
         for _ in range(6):
@@ -73,6 +86,7 @@ class Files():
                 self.pid = self.tmp.pid
                 break
             time.sleep(0.5)
+    
     
     def __run_script(self):
         #run the script and add the output to the terminal attribute

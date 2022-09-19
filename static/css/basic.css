@@ -15,6 +15,8 @@
     --primary-color-light: #414141;
     --toggle-color: ##E6E6E6;
     --text-color: #DFDFDF;
+    --spacer-color: #a8a8a8;
+    --red-color: #c43952;
 
 
     /* ====== Transition ====== */
@@ -24,6 +26,158 @@
     --tran-05: all 0.3s ease;
 }
 
+.top{
+    display: flex;
+}
+
+.script{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.script .buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.script .buttons button{
+    margin: 0 5px;
+    padding: 5px;
+}
+
+
+.node .deleteBut{
+    color: var(--red-color);
+}
+
+.node select{
+    background-color: var(--body-color-dark);
+    color: var(--text-color);
+    border: none;
+    padding: 2px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+}
+
+.node button{
+    background-color: var(--body-color);
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.node button:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+}
+
+.node p {
+    color: var(--text-color);
+}
+
+.node p:hover{
+    color: var(--logo-color);
+}
+
+.node input {
+    color: var(--text-color);
+    background-color: var(--body-color-dark);
+    border: none;
+    padding: 2px;
+    width: 6em;
+    border-radius: .5em;
+}
+
+
+
+.node {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 1em;
+}
+
+.top h1{
+    color: var(--text-color);
+    margin: 0px !important;
+    
+}
+
+.settingsSection{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    background-color: var(--body-color);
+    margin-left: 88px;
+}
+
+.settingsSection .saveBut button{
+    background-color: var(--body-color-dark);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: auto;
+    font-weight: 700;
+}
+
+.settingsSection .saveBut button:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
+.settingsSection .setting{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.settingsSection textarea{
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--body-color-dark);
+    padding: 10px;
+    border-radius: 5px;
+    resize: none;
+    border: none;
+}
+
+.settingsSection h1{
+    color: var(--text-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.settingsSection h2{
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.settingsSection .spacer{
+    background-color: var(--text-color);
+    margin: 10px 0;
+    margin-top: 5px;
+    height: 9px;
+}
+
+.smallSpacer{
+    background-color: var(--text-color);
+    margin: 8px 0;
+    height: 3px;
+}
 .systemBody{
     display: flex;
     flex-direction: column;
@@ -87,6 +241,46 @@
     margin-bottom: 1em;
 }
 
+.fileUpload input{
+    background-color: var(--body-color);
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 200px;
+}
+
+.fileUpload .inputClassBut::-webkit-file-upload-button{
+    background-color: var(--body-color-dark);
+    border-radius: 1em;
+    padding: 0.5em;
+    color: var(--text-color);
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+.fileUpload .inputClassBut::-webkit-file-upload-button:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
+.fileUpload button{
+    background-color: var(--body-color);
+    border-radius: 1em;
+    padding: .8em;
+    cursor: pointer;
+    border: none;
+    color: var(--text-color);
+    margin: 0 10px;
+    font-weight: 700;
+}
+
+.fileUpload button:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
 .fileSync button:hover{
     background-color: var(--logo-color);
     color: var(--body-color-dark);
@@ -101,11 +295,11 @@
     /* full circle! */
     border-radius: 50%;
     box-sizing: border-box;
-    border: 10px solid #ccc;
+    border: 10px solid var(--body-color);
     /* half gray, */
-    border-bottom-color: #0bf;
+    border-bottom-color: var(--logo-color);
     /* half azure */
-    border-right-color: #0bf;
+    border-right-color: var(--logo-color);
 }
 
 .systemBody .monitor{
@@ -138,6 +332,18 @@
     min-width: 320px;
 }
 
+.fileBody .progressBar{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.fileBody .progressBar .fileProgress{
+    display: flex;
+    flex-direction: row;
+    margin: 0 !important;
+}
+
 .fileBody button{
     display: inline;
     color: var(--body-color-dark);
@@ -166,6 +372,24 @@
     font-size: 1.2em;
 }
 
+.fileBody .editBut:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
+.fileBody .runBut:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
+.fileBody .killBut:hover{
+    background-color: var(--logo-color);
+    color: var(--body-color-dark);
+    transition: var(--tran-03);
+}
+
 .fileBody .description textarea{
     background-color: var(--body-color); 
     color: var(--text-color);
@@ -189,18 +413,24 @@
     -webkit-appearance: none;
 }
 
+.fileBody .ipAddress{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .fileBody .pid{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.fileBody .pid p{
+.fileBody p{
     font-size: 16px;
     margin-left: 4px;
 }
 
-.fileBody .pid h1{
+.fileBody h1{
     font-size: 16px;
 }
 
@@ -289,6 +519,7 @@
     background-color: #FF0000;
     margin-right: .4em;
 }
+
 
 .miniTerminal h1{
     display: inline;

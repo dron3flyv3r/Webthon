@@ -1,10 +1,29 @@
 {
     "clusterName": "RPiCluster",
-    "customFiles": {},
-    "fileNames": [
-        [
-            "",
-            ""
-        ]
+    "Nodes": [
+        {
+            "name": "Fatty",
+            "ip": "192.168.1.126",
+            "port": "22",
+            "hostName": "drone",
+            "password": "Nutella1",
+            "type": "Windows"
+        },
+        {
+            "name": "Node1",
+            "ip": "192.168.1.52",
+            "port": "22",
+            "hostName": "pi",
+            "password": "Everest1",
+            "type": "RaspberryPi"
+        }
+    ],
+    "typs": [
+        {
+            "name": "RaspberryPi"
+        },
+        {
+            "name": "Windows"
+        }
     ]
 }

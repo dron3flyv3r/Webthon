@@ -1,10 +1,12 @@
 {
     "clusterName": "RPiCluster",
-    "customFiles": {},
-    "fileNames": [
-        [
-            "",
-            ""
-        ]
+    "Nodes": [],
+    "typs": [
+        {
+            "name": "RaspberryPi"
+        },
+        {
+            "name": "Windows"
+        }
     ]
 }
